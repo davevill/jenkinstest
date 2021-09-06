@@ -1,9 +1,15 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Deploy') {
             steps {
-                bat 'set'
+                retry(3) {
+                    bat 'cp nofound nofound2'
+                }
+
+                timeout(time: 3, unit: 'MINUTES') {
+                    bat 'ping google.com'
+                }
             }
         }
     }
